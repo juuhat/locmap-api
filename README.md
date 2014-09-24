@@ -19,6 +19,7 @@ Returns location object specified by objectID
 }
 ```
 
+
 `post /location`
 
 Creates new location object.
@@ -44,6 +45,7 @@ If credentials match returns access token in `x-access-token` header
   password: "pw123"
 }
 ```
+
 
 `post /auth/register`
 
