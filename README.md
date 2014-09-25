@@ -3,6 +3,13 @@ locApi
 
 ## API
 
+All requests should use header:
+`Content-Type` `application/json`
+
+
+To use authentication in request use header:
+`Authorization` `Bearer tokenKeyFromAuthLogin`
+
 ### Location
 
 `get /location/:id`
