@@ -27,7 +27,6 @@ Returns location object specified by objectID
 ```
 
 
-
 `post /location`
 
 Creates new location object.
@@ -42,7 +41,6 @@ Creates new location object.
 ```
 
 
-
 `put /location/:id`
 
 Update location object specified by ObjectID
@@ -55,10 +53,36 @@ Update location object specified by ObjectID
 ```
 
 
-
 `delete /location/:id`
 
 Deletes location object specified by ObjectID
+
+### Route
+
+`get /routes/:id`
+
+Returns route object specified by ObjectID
+
+```
+{
+  "title": "Title",
+  "description": "Some description",
+  "locations": ["541c01be87d6ac301ef72447", "541c01be87d6ac301ef65381"]
+}
+```
+
+
+`post /routes`
+
+Creates route object
+
+```
+{
+  "title": "Title",
+  "description": "Some description",
+  "locations": ["541c01be87d6ac301ef65381"]
+}
+```
 
 ### User
 
@@ -71,7 +95,6 @@ Returns user's username specified by ObjectID
   "username": "test"
 }
 ```
-
 
 
 `delete /users/:id`
@@ -92,7 +115,6 @@ If credentials match returns access token in `x-access-token` header
 ```
 
 
-
 `post /auth/register`
 
 Creates new user with given credentials
@@ -104,7 +126,6 @@ Creates new user with given credentials
   password: "pw123"
 }
 ```
-
 
 
 `post /auth/logout`
