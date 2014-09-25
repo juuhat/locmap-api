@@ -40,6 +40,23 @@ Creates new location object.
 }
 ```
 
+
+`put /location/:id`
+
+Update location object specified by ObjectID
+
+```
+{
+  "title": "New title",
+  "description:" "New description"
+}
+```
+
+
+`delete /location/:id`
+
+Deletes location object specified by ObjectID
+
 ### Authentication
 
 `post /auth/login`
