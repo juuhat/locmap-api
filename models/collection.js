@@ -8,4 +8,4 @@ var routeSchema = new Schema({
 	locations: [String]
 });
 
-module.exports = mongoose.model('Route', routeSchema);
+module.exports = mongoose.model('Collection', routeSchema);

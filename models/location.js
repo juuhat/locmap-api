@@ -7,7 +7,8 @@ var locationSchema = new Schema({
 	description: String,
 	imgUrl: String,
 	latitude: {type: Number, required: true},
-	longitude: {type: Number, required: true}
+	longitude: {type: Number, required: true},
+	collections: [String]
 });
 
 module.exports = mongoose.model('Location', locationSchema);
