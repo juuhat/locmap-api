@@ -2,10 +2,10 @@ var BearerStrategy = require('passport-http-bearer').Strategy;
 
 module.exports = new BearerStrategy(function(token, done) {
 	var User = require('../../models/user.js');
-	
+
 	User.findOne({ token: token }, function(err, doc) {
 		var user = doc;
-		console.log(user);
+
 		if(!user) {
 			return done(null, null);
 		}
