@@ -12,6 +12,11 @@ var userSchema = new Schema({
 
 //generating a hash
 userSchema.methods.generateHash = function(password) {
+
+	if (password.length < 4) {
+		throw new Error("Password too short");
+	}
+
 	return bcrypt.hashSync(password, 8);
 };
 
@@ -19,5 +24,13 @@ userSchema.methods.generateHash = function(password) {
 userSchema.methods.matchPassword = function(password) {
 	return bcrypt.compareSync(password, this.password);
 };
+
+userSchema.methods.toJSON = function() {
+	var obj = this.toObject();
+	delete obj.password;
+	delete obj.token;
+	delete obj.__v;
+	return obj;
+}
 
 module.exports = mongoose.model('User', userSchema);

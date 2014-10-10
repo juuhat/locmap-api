@@ -8,6 +8,7 @@ var locationSchema = new Schema({
 	imgUrl: String,
 	latitude: {type: Number, required: true},
 	longitude: {type: Number, required: true},
+	updated: {type: Date, default: Date.now},
 	collections: [String]
 });
 
