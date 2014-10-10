@@ -109,8 +109,8 @@ If credentials match returns access token in `x-access-token` header
 
 ```
 {
-  email: "test@example.com",
-  password: "pw123"
+  "email": "test@example.com",
+  "password": "pw123"
 }
 ```
 
@@ -121,9 +121,9 @@ Creates new user with given credentials
 
 ```
 {
-  email: "test@example.com",
-  username: "test",
-  password: "pw123"
+  "email": "test@example.com",
+  "username": "test",
+  "password": "pw123"
 }
 ```
 
@@ -131,3 +131,10 @@ Creates new user with given credentials
 `post /auth/logout`
 
 Log out the user matching to given auth token
+
+
+### Upload
+
+`post /uploads`
+
+`Content-Type` `multipart/form-data`
