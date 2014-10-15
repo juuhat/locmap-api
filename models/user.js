@@ -7,6 +7,8 @@ var userSchema = new Schema({
 	username: String,
 	email: {type: String, required: true, unique: true},
 	password: {type: String, required: true},
+	locations: [String],
+	collections: [String],
 	token: String
 });
 

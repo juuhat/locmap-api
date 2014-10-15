@@ -9,6 +9,7 @@ var locationSchema = new Schema({
 	latitude: {type: Number, required: true},
 	longitude: {type: Number, required: true},
 	updated: {type: Date, default: Date.now},
+	owners: [String],
 	collections: [String]
 });
 
