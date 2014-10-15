@@ -27,13 +27,21 @@ router.get('/locations/:id', function(req, res) {
 });
 
 
-router.post('/locations', function(req, res) {
+router.post('/locations', passport.authenticate('bearer'), function(req, res) {
 	var newLocation = new Location(req.body);
+	newLocation.owners = [req.user.id];
 	newLocation.save(function (err, doc) {
 		if (err) {
 			res.status(400).send(err);
 		} else {
-			res.status(200).json({id: doc.id});
+
+			User.findById(req.user.id, function(err, usr) {
+				usr.locations.push(doc.id);
+				usr.save(function(err, usr) {
+					res.status(200).json({id: doc.id});
+				});
+			});
+
 		}
 	});
 });
@@ -47,7 +55,6 @@ router.put('/locations/:id', function(req, res) {
 	});
 
 });
-
 
 router.delete('/locations/:id', function(req, res) {
 	Location.findById(req.params.id, function(err, doc) {
@@ -74,7 +81,7 @@ router.get('/collections/:id', function(req, res) {
 	});
 });
 
-router.post('/collections', function(req, res) {
+router.post('/collections', passport.authenticate('bearer'), function(req, res) {
 	var newCollection = new Collection(req.body);
 	newCollection.save(function (err, doc) {
 		if (err) {
