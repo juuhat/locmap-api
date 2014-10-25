@@ -13,4 +13,24 @@ var locationSchema = new Schema({
 	collections: [String]
 });
 
+locationSchema.statics.updateCollections = function(locId, collId) {
+	this.findById(locId, function(err, doc) {
+
+		console.log("doc.id: " + doc.id);
+		console.log("collId:" + collId);
+
+		var i = doc.collections.indexOf(collId);
+		console.log("i: " + i);
+		if (i === -1) {
+			doc.collections.push(collId);
+		} else {
+			doc.collections.splice(i, 1);
+		}
+
+		doc.save();
+
+	});
+
+};
+
 module.exports = mongoose.model('Location', locationSchema);

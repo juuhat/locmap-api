@@ -14,11 +14,9 @@ var userSchema = new Schema({
 
 //generating a hash
 userSchema.methods.generateHash = function(password) {
-
 	if (password.length < 4) {
 		throw new Error("Password too short");
 	}
-
 	return bcrypt.hashSync(password, 8);
 };
 
