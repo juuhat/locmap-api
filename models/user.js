@@ -7,8 +7,6 @@ var userSchema = new Schema({
 	username: String,
 	email: {type: String, required: true, unique: true},
 	password: {type: String, required: true},
-	locations: [String],
-	collections: [String],
 	token: String
 });
 
@@ -24,6 +22,11 @@ userSchema.methods.generateHash = function(password) {
 userSchema.methods.matchPassword = function(password) {
 	return bcrypt.compareSync(password, this.password);
 };
+
+userSchema.methods.validateEmail = function(email) {
+	var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+	return re.test(email);
+}
 
 userSchema.methods.toJSON = function() {
 	var obj = this.toObject();

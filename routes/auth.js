@@ -9,7 +9,7 @@ var Collection = require('../models/collection.js');
 router.post('/auth/register', function(req, res) {
 	var newUser = new User();
 
-	if (!validateEmail(req.body.email)) {
+	if (!newUser.validateEmail(req.body.email)) {
 		return res.status(400).json({error: "Invalid email"});
 	}
 

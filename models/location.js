@@ -9,28 +9,15 @@ var locationSchema = new Schema({
 	latitude: {type: Number, required: true},
 	longitude: {type: Number, required: true},
 	updated: {type: Date, default: Date.now},
-	owners: [String],
-	collections: [String]
+	owners: [{type: Schema.Types.ObjectId, ref: 'User'}]
 });
 
-locationSchema.statics.updateCollections = function(locId, collId) {
-	this.findById(locId, function(err, doc) {
+locationSchema.index({'owners':1});
 
-		console.log("doc.id: " + doc.id);
-		console.log("collId:" + collId);
-
-		var i = doc.collections.indexOf(collId);
-		console.log("i: " + i);
-		if (i === -1) {
-			doc.collections.push(collId);
-		} else {
-			doc.collections.splice(i, 1);
-		}
-
-		doc.save();
-
-	});
-
-};
+locationSchema.methods.toJSON = function() {
+	var obj = this.toObject();
+	delete obj.__v;
+	return obj;
+}
 
 module.exports = mongoose.model('Location', locationSchema);

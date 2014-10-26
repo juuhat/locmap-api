@@ -8,13 +8,14 @@ router.post('/uploads', passport.authenticate('bearer', { session: false }), fun
 		onFileUploadStart: function (file) {
 			var ext = file.extension.toLowerCase();
 			if (ext !== "jpg" && ext !== "jpeg" && ext !== "png") {
-				res.status(400).json({message: "Wrong image format"});
+				res.status(400).json({message: "Wrong format"});
 				return false;
 			}
 		},
 		onFileUploadComplete: function (file) {
 			console.log(file.fieldname + ' uploaded to  ' + file.path)
-			res.send("done");
+			res.json({imgUrl: file.name});
+			return true;
 		}
 	});
 	handler(req, res, next);

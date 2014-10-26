@@ -1,7 +1,3 @@
-// BASE SETUP
-// =============================================================================
-
-// call the packages we need
 var express    = require('express');
 var app        = express();
 var bodyParser = require('body-parser');
@@ -10,8 +6,7 @@ var passport   = require('./config/passport');
 
 app.use(passport.initialize());
 
-// configure app to use bodyParser()
-// this will let us get the data from a POST
+//configure app to use bodyParser()
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
@@ -26,9 +21,8 @@ app.use('/api/v1', require('./routes/location.js'));
 app.use('/api/v1', require('./routes/collection.js'));
 app.use('/api/v1', require('./routes/auth.js'));
 app.use('/api/v1', require('./routes/user.js'));
-app.use('/api/v1', require('./routes/image.js'));
+app.use('/api/v1', require('./routes/upload.js'));
 
-// START THE SERVER
-// =============================================================================
+//start server
 app.listen(port);
 console.log('Listening on port: ' + port);
