@@ -1,0 +1,20 @@
+//Image model
+var mongoose = require('mongoose')
+var Schema = mongoose.Schema;
+
+var imageSchema = new Schema({
+	data: Buffer,
+	contentType: String,
+	owner: {type: Schema.Types.ObjectId, ref: 'User'},
+	created_at: {type: Date}
+});
+
+imageSchema.pre('save', function(next) {
+	var now = new Date();
+	if (!this.created_at)
+		this.created_at = now;
+
+	next();
+});
+
+module.exports = mongoose.model('Image', imageSchema);
