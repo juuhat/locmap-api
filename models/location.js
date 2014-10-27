@@ -8,11 +8,21 @@ var locationSchema = new Schema({
 	imgUrl: String,
 	latitude: {type: Number, required: true},
 	longitude: {type: Number, required: true},
-	updated: {type: Date, default: Date.now},
-	owners: [{type: Schema.Types.ObjectId, ref: 'User'}]
+	owners: [{type: Schema.Types.ObjectId, ref: 'User'}],
+	updated_at: {type: Date},
+	created_at: {type: Date}
 });
 
 locationSchema.index({'owners':1});
+
+locationSchema.pre('save', function(next) {
+	var now = new Date();
+	this.updated_at = now;
+	if (!this.created_at)
+		this.created_at = now;
+
+	next();
+});
 
 locationSchema.methods.toJSON = function() {
 	var obj = this.toObject();
