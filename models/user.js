@@ -12,6 +12,15 @@ var userSchema = new Schema({
 	created_at: {type: Date}
 });
 
+userSchema.pre('save', function(next) {
+	var now = new Date();
+	this.updated_at = now;
+	if (!this.created_at)
+		this.created_at = now;
+
+	next();
+});
+
 //generating a hash
 userSchema.methods.generateHash = function(password) {
 	if (password.length < 4) {

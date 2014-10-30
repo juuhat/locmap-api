@@ -2,6 +2,7 @@ var router = require('express').Router();
 var passport = require('passport');
 
 var Location = require('../models/location.js');
+var Image = require('../models/image.js');
 
 //GET
 //Get location specified by id
@@ -9,12 +10,30 @@ router.get('/locations/:id', function(req, res) {
   Location.findById(req.params.id, function(err, doc) {
 
       if (err)
-        res.status(400).json({message: err.message});
+        return res.status(400).json({message: err.message});
 
       if (!doc)
         return res.status(400).json({message: "Not found"});
 
-      res.json(doc);
+      //Find attached images
+      Image.find({location: doc.id}, '_id', function(err, doc2) {
+        if (err)
+          return res.status(400).json({message: err.message});
+
+        var location = doc.toObject();
+        delete location.__v;
+        location.images = [];
+
+        if (doc2) {
+          doc2.forEach(function(e) {
+            location.images.push(e.id);
+          });
+        }
+
+        res.json(location);
+
+      });
+
   });
 });
 
@@ -26,7 +45,7 @@ router.post('/locations', passport.authenticate('bearer'), function(req, res) {
   
   newLocation.save(function (err, doc) {
     if (err)
-      res.status(400).json({message: err.message});
+      return res.status(400).json({message: err.message});
 
     res.json({id: doc.id});
   });
@@ -72,11 +91,17 @@ router.delete('/locations/:id', passport.authenticate('bearer'), function(req, r
     if (doc.owners.indexOf(req.user.id) === -1)
       return res.status(400).json({message: "Not owner"});
 
-    doc.remove(function(err) {
+    Image.remove({location: doc.id}, function(err) {
       if (err)
         return res.status(400).json({message: err.message});
 
-      res.json({message: "Deleted"});
+      doc.remove(function(err) {
+        if (err)
+          return res.status(400).json({message: err.message});
+
+        res.json({message: "Deleted"});
+      });
+
     });
 
   });

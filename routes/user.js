@@ -5,8 +5,9 @@ var async = require('async');
 var User = require('../models/user.js');
 var Location = require('../models/location.js');
 var Collection = require('../models/collection.js');
-var Image = require('../models/image.js');
 
+//GET
+//Get user specified by id
 router.get('/users/:id', function(req, res) {
 
 	User.findById(req.params.id, function(err, doc) {
@@ -36,16 +37,6 @@ router.get('/users/:id', function(req, res) {
 
 					callback(null, collections);
 				});
-			},
-
-			//Get user's images
-			function(callback) {
-				Image.find({owner: doc.id}, '_id', function(err, images) {
-					if (err)
-						callback(err)
-
-					callback(null, images);
-				});
 			}
 
 		],
@@ -60,7 +51,6 @@ router.get('/users/:id', function(req, res) {
 			user.username = doc.username;
 			user.locations = results[0] || [];
 			user.collections = results[1] || [];
-			user.images = results[2] || [];
 
 			res.json(user);
 		});

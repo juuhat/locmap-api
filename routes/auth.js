@@ -9,9 +9,8 @@ var Collection = require('../models/collection.js');
 router.post('/auth/register', function(req, res) {
 	var newUser = new User();
 
-	if (!newUser.validateEmail(req.body.email)) {
+	if (!newUser.validateEmail(req.body.email))
 		return res.status(400).json({error: "Invalid email"});
-	}
 
 	newUser.email = req.body.email;
 	newUser.username = req.body.username;
@@ -23,17 +22,13 @@ router.post('/auth/register', function(req, res) {
 	}
 
 	newUser.save(function(err, doc) {
+		if (err)
+			return res.status(400).json({message: err.message});
 
-		if (err) {
-			res.status(500).json({error: "Internal server error"});
-		}
-
-		if (!doc) {
-			res.status(400).json({error: "Email already in use"})
-		}
+		if (!doc)
+			return res.status(400).json({message: "Email already in use"});
 
 		res.json(doc);
-
 	});
 
 });
@@ -43,13 +38,11 @@ router.post('/auth/login', function(req, res) {
 	// callback for local authentication
 	var onAuthenticated = function(err, user) {
 
-		if(err) {
-			return res.status(400).json({error: err});
-		}
+		if(err)
+			return res.status(400).json({error: err.message});
 
-		if (!user) {
+		if (!user)
 			return res.status(400).json({message: "Wrong email or password"});
-		}
 
 		// generate unique token for the user
 		user.token = jwt.sign({ id: user.id }, "token-secret",
@@ -58,7 +51,7 @@ router.post('/auth/login', function(req, res) {
 		// store generated token in db for further authentication
 		user.save(function(err, doc) {
 			res.set('x-access-token', doc.token);
-			return res.json(200, doc);
+			return res.json(doc);
 		});
 	}
 
@@ -70,8 +63,14 @@ router.post('/auth/login', function(req, res) {
 router.post('/auth/logout', passport.authenticate('bearer', { session: false }), function(req, res) {
 
 	User.findById(req.user.id, function(err, doc) {
-		doc.token = null;
 
+		if (err)
+			return res.status(400).json({message: err.message});
+
+		if (!doc)
+			return res.status(400).json({message: "Not found"});
+
+		doc.token = null;
 		doc.save(function(err, doc) {
 			res.json({message: "Logged out"});
 		});

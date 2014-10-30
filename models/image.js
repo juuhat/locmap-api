@@ -6,7 +6,7 @@ var imageSchema = new Schema({
 	data: Buffer,
 	contentType: String,
 	owner: {type: Schema.Types.ObjectId, ref: 'User'},
-	location: {type: Schema.Types.ObjectId, ref: 'Location'},
+	location: {type: Schema.Types.ObjectId, ref: 'Location', required: true},
 	created_at: {type: Date}
 });
 
