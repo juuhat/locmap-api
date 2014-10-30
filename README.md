@@ -23,7 +23,10 @@ To use authentication in request use header:
   "description": "Test description.",
   "latitude": 23.1,
   "longitude": 132,
-  "updated_at": "2014-10-26T15:48:23.411Z"
+  "owners": ["545287ba4c208ee46961de5b"],
+  "images": ["5452888d4c208ee46961de5d", "5452888d4c208ee469614990"],
+  "updated_at": "2014-10-26T16:32:34.231Z",
+  "created_at": "2014-10-26T15:48:23.411Z",
 }
 ```
 
