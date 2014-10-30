@@ -12,7 +12,7 @@ To use authentication in request use header:
 
 ### Location
 
-`get /location/:id`
+#### get /location/:id
 
 Returns location object specified by objectID
 
@@ -27,7 +27,7 @@ Returns location object specified by objectID
 ```
 
 
-`post /location`
+#### post /location
 
 Creates new location object.
 
@@ -53,13 +53,13 @@ Update location object specified by ObjectID
 ```
 
 
-`delete /location/:id`
+#### delete /location/:id
 
 Deletes location object specified by ObjectID
 
 ### Route
 
-`get /routes/:id`
+#### get /routes/:id
 
 Returns route object specified by ObjectID
 
@@ -72,7 +72,7 @@ Returns route object specified by ObjectID
 ```
 
 
-`post /routes`
+#### post /routes
 
 Creates route object
 
@@ -86,7 +86,7 @@ Creates route object
 
 ### User
 
-`get /users/:id`
+#### get /users/:id
 
 Returns user's username specified by ObjectID
 
@@ -97,13 +97,13 @@ Returns user's username specified by ObjectID
 ```
 
 
-`delete /users/:id`
+#### delete /users/:id
 
 Deletes user object specified by ObjectID
 
 ### Authentication
 
-`post /auth/login`
+#### post /auth/login
 
 If credentials match returns access token in `x-access-token` header
 
@@ -115,7 +115,7 @@ If credentials match returns access token in `x-access-token` header
 ```
 
 
-`post /auth/register`
+#### post /auth/register
 
 Creates new user with given credentials
 
@@ -128,13 +128,13 @@ Creates new user with given credentials
 ```
 
 
-`post /auth/logout`
+#### post /auth/logout
 
 Log out the user matching to given auth token
 
 
 ### Upload
 
-`post /uploads`
+#### post /uploads
 
 `Content-Type` `multipart/form-data`
