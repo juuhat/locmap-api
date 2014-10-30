@@ -6,8 +6,12 @@ var imageSchema = new Schema({
 	data: Buffer,
 	contentType: String,
 	owner: {type: Schema.Types.ObjectId, ref: 'User'},
+	location: {type: Schema.Types.ObjectId, ref: 'Location'},
 	created_at: {type: Date}
 });
+
+imageSchema.index({'owner':1});
+imageSchema.index({'location':1});
 
 imageSchema.pre('save', function(next) {
 	var now = new Date();
