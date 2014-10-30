@@ -47,21 +47,34 @@ To use authentication in request use header:
 }
 ```
 
-#### PUT /locations/:id`
+#### PUT /locations/:id
 
-Update location object specified by ObjectID
-
+###### Request
+`Authorization` `required`
 ```
 {
   "title": "New title",
   "description:" "New description"
 }
 ```
-
+###### Response
+```
+{
+  "message": "Updated"
+}
+```
 
 #### DELETE /locations/:id
 
-Deletes location object specified by ObjectID
+###### Request
+`Authorization` `required`
+
+###### Response
+```
+{
+  "message": "Deleted"
+}
+```
 
 ### Collections
 
