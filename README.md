@@ -22,15 +22,15 @@ To use authentication in request use header:
   "title": "Test",
   "description": "Test description.",
   "latitude": 23.1,
-  "longitude": 132
+  "longitude": 132,
+  "updated_at": "2014-10-26T15:48:23.411Z"
 }
 ```
 
-
 #### POST /locations
 
-Creates new location object.
-
+###### Request
+`Authorization` `required`
 ```
 {
   "title": "Test",
@@ -40,6 +40,11 @@ Creates new location object.
 }
 ```
 
+###### Response
+```
+{
+  "id": "541c01be87d6ac301ef72447"
+}
 
 #### PUT /locations/:id`
 
