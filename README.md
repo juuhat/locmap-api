@@ -8,7 +8,7 @@ All requests should use header:
 To use authentication in request use header:
 `Authorization` `Bearer tokenKeyFromAuthLogin`
 
-### Locations
+## Locations
 
 #### GET /locations/:id
 
@@ -45,6 +45,7 @@ To use authentication in request use header:
 {
   "id": "541c01be87d6ac301ef72447"
 }
+```
 
 #### PUT /locations/:id`
 
@@ -62,9 +63,9 @@ Update location object specified by ObjectID
 
 Deletes location object specified by ObjectID
 
-### Route
+### Collections
 
-#### GET /routes/:id
+#### GET /collections/:id
 
 Returns route object specified by ObjectID
 
@@ -77,7 +78,7 @@ Returns route object specified by ObjectID
 ```
 
 
-#### post /routes
+#### POST /collections
 
 Creates route object
 
@@ -89,9 +90,9 @@ Creates route object
 }
 ```
 
-### User
+### Users
 
-#### get /users/:id
+#### GET /users/:id
 
 Returns user's username specified by ObjectID
 
@@ -102,13 +103,13 @@ Returns user's username specified by ObjectID
 ```
 
 
-#### delete /users/:id
+#### DELETE /users/:id
 
 Deletes user object specified by ObjectID
 
 ### Authentication
 
-#### post /auth/login
+#### POST /auth/login
 
 If credentials match returns access token in `x-access-token` header
 
