@@ -1,7 +1,5 @@
-locApi
+locmap-api documentation
 ======
-
-## API
 
 All requests should use header:
 `Content-Type` `application/json`
@@ -10,12 +8,14 @@ All requests should use header:
 To use authentication in request use header:
 `Authorization` `Bearer tokenKeyFromAuthLogin`
 
-### Location
+### Locations
 
-#### get /location/:id
+#### GET /locations/:id
 
-Returns location object specified by objectID
+###### Request
+`Authorization` `not required`
 
+###### Response
 ```
 {
   "_id": "541c01be87d6ac301ef72447",
@@ -27,7 +27,7 @@ Returns location object specified by objectID
 ```
 
 
-#### post /location
+#### POST /locations
 
 Creates new location object.
 
@@ -41,7 +41,7 @@ Creates new location object.
 ```
 
 
-`put /location/:id`
+#### PUT /locations/:id`
 
 Update location object specified by ObjectID
 
@@ -53,13 +53,13 @@ Update location object specified by ObjectID
 ```
 
 
-#### delete /location/:id
+#### DELETE /locations/:id
 
 Deletes location object specified by ObjectID
 
 ### Route
 
-#### get /routes/:id
+#### GET /routes/:id
 
 Returns route object specified by ObjectID
 
@@ -115,7 +115,7 @@ If credentials match returns access token in `x-access-token` header
 ```
 
 
-#### post /auth/register
+#### POST /auth/register
 
 Creates new user with given credentials
 
@@ -128,13 +128,13 @@ Creates new user with given credentials
 ```
 
 
-#### post /auth/logout
+#### POST /auth/logout
 
 Log out the user matching to given auth token
 
 
-### Upload
+### Uploads
 
-#### post /uploads
+#### POST /uploads
 
 `Content-Type` `multipart/form-data`
