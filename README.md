@@ -76,7 +76,7 @@ To use authentication in request use header:
 }
 ```
 
-### Collections
+## Collections
 
 #### GET /collections/:id
 
@@ -103,7 +103,7 @@ Creates route object
 }
 ```
 
-### Users
+## Users
 
 #### GET /users/:id
 
@@ -152,8 +152,8 @@ Creates new user with given credentials
 Log out the user matching to given auth token
 
 
-### Uploads
+## Images
 
-#### POST /uploads
+#### POST /images
 
 `Content-Type` `multipart/form-data`
