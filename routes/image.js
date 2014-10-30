@@ -17,7 +17,24 @@ var handler = multer({
 	}
 });
 
-router.post('/uploads', passport.authenticate('bearer', { session: false }), handler, function(req, res, next) {
+//GET
+//Get image specified by id
+router.get('/images/:id', function(req, res) {
+	Image.findById(req.params.id, function(err, doc) {
+		if (err)
+			res.status(400).json({message: err.message});
+
+		if (!doc)
+			res.status(400).json({message: "Not found"});
+
+		res.contentType(doc.contentType);
+		res.send(doc.data);
+	});
+});
+
+//POST
+//Create new image
+router.post('/images', passport.authenticate('bearer', { session: false }), handler, function(req, res, next) {
 	var imgData = req.files.image;
 
 	if (!imgData)
@@ -38,7 +55,8 @@ router.post('/uploads', passport.authenticate('bearer', { session: false }), han
 			newImage.data = buffer;
 			newImage.contentType = "image/jpeg";
 			newImage.owner = req.user.id;
-			
+			newImage.location = req.body.location;
+
 			newImage.save(function (err, doc) {
 				if (err)
 					res.status(400).json({message: err.message});
@@ -50,14 +68,29 @@ router.post('/uploads', passport.authenticate('bearer', { session: false }), han
 
 });
 
-router.get('/uploads/:id', function(req, res) {
-	Image.findById(req.params.id, function(err, doc) {
-		if (err)
-			res.status(400).json({message: err.message});
+//DELETE
+//Delete image specified by id
+router.delete('/images/:id', passport.authenticate('bearer'), function(req, res) {
+  Image.findById(req.params.id, function(err, doc) {
+    
+    if (err)
+      return res.status(400).json({message: err.message});
 
-		res.contentType(doc.contentType);
-		res.send(doc.data);
-	});
+    if (!doc)
+      return res.status(400).json({message: "Not found"});
+
+    if (doc.owner !== req.user.id)
+      return res.status(400).json({message: "Not owner"});
+
+    doc.remove(function(err) {
+      if (err)
+        return res.status(400).json({message: err.message});
+
+      res.json({message: "Deleted"});
+    });
+
+  });
 });
+
 
 module.exports = router;

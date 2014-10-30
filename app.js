@@ -21,7 +21,7 @@ app.use('/api/v1', require('./routes/location.js'));
 app.use('/api/v1', require('./routes/collection.js'));
 app.use('/api/v1', require('./routes/auth.js'));
 app.use('/api/v1', require('./routes/user.js'));
-app.use('/api/v1', require('./routes/upload.js'));
+app.use('/api/v1', require('./routes/image.js'));
 
 //start server
 app.listen(port);
