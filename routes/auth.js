@@ -1,6 +1,7 @@
 var router = require('express').Router();
 var passport = require('passport');
 var jwt = require('jsonwebtoken');
+var vars = require('../config/variables.js');
 
 var User = require('../models/user.js');
 var Location = require('../models/location.js');
@@ -45,7 +46,7 @@ router.post('/auth/login', function(req, res) {
 			return res.status(400).json({message: "Wrong email or password"});
 
 		// generate unique token for the user
-		user.token = jwt.sign({ id: user.id }, "token-secret",
+		user.token = jwt.sign({ id: user.id }, vars.tokenSecret,
 			{ expiresInMinutes: 1440 });
 
 		// store generated token in db for further authentication

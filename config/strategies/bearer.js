@@ -12,7 +12,7 @@ module.exports = new BearerStrategy(function(token, done) {
 
 		var jwt = require('jsonwebtoken');
 
-		jwt.verify(user.token, "token-secret", function(err, decoded) {
+		jwt.verify(user.token, vars.tokenSecret, function(err, decoded) {
 			if(err) {
 				console.log(err);
 				return done(err, null);
