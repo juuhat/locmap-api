@@ -7,7 +7,9 @@ var userSchema = new Schema({
 	username: String,
 	email: {type: String, required: true, unique: true},
 	password: {type: String, required: true},
-	token: String
+	token: String,
+	updated_at: {type: Date},
+	created_at: {type: Date}
 });
 
 //generating a hash

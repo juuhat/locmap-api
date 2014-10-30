@@ -28,7 +28,7 @@ router.post('/locations', passport.authenticate('bearer'), function(req, res) {
     if (err)
       res.status(400).json({message: err.message});
 
-    res.json(doc);
+    res.json({id: doc.id});
   });
 });
 
