@@ -11,6 +11,11 @@ app.use(passport.initialize());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+//error handler
+app.use(function(err, req, res, next) {
+	return res.status(400).json({message: err.message});
+});
+
 //mongoDB connection
 mongoose.connect(vars.mongodbAddress);
 

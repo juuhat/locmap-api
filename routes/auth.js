@@ -36,32 +36,32 @@ router.post('/auth/register', function(req, res) {
 
 router.post('/auth/login', function(req, res) {
 
-	// callback for local authentication
+	//callback for local authentication
 	var onAuthenticated = function(err, user) {
 
 		if(err)
-			return res.status(400).json({error: err.message});
+			return res.status(400).json({message: err.message});
 
 		if (!user)
 			return res.status(400).json({message: "Wrong email or password"});
 
-		// generate unique token for the user
+		//generate unique token
 		user.token = jwt.sign({ id: user.id }, vars.tokenSecret,
 			{ expiresInMinutes: 1440 });
 
-		// store generated token in db for further authentication
+		//save generated token
 		user.save(function(err, doc) {
 			res.set('x-access-token', doc.token);
 			return res.json(doc);
 		});
 	}
 
-	// authenticate using the passport local strategy
+	//authenticate using the passport local strategy
 	return passport.authenticate('local', { session: false }, onAuthenticated)(req, res);
 
 });
 
-router.post('/auth/logout', passport.authenticate('bearer', { session: false }), function(req, res) {
+router.post('/auth/logout', passport.authenticate('bearer'), function(req, res) {
 
 	User.findById(req.user.id, function(err, doc) {
 
@@ -79,5 +79,8 @@ router.post('/auth/logout', passport.authenticate('bearer', { session: false }),
 	});
 
 });
+
+
+
 
 module.exports = router;
