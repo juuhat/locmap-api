@@ -168,13 +168,26 @@ Log out the user matching to given auth token
 
 ## Images
 
+#### GET /images/:id
+
+###### Request
+`Content-Type` `image/jpeg`
+
+###### Response
+`Content-Type` `image/jpeg`
+
 #### POST /images
 
 ###### Request
 `Authorization` `required`
 
-**form-data fields**
-
+form-data fields
 `image` `imageData: .jpg or .jpeg or .png`
-
 `location` `54528b9d55b8f08046fd9773`
+
+###### Response
+```
+{
+  "id": "545b644bbf2589483c87c20c"
+}
+```
