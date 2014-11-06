@@ -23,7 +23,7 @@ router.get('/collections/:id', function(req, res) {
   			async.map(locations, function(loc, done) {
   				Image.find({location: loc.id}, '_id', function(err, images) {
   			    	if (err)
-  			      		done(err, null);
+  			    		done(err, null);
 
   			    	var loc2 = loc.toObject();
   			    	delete loc2.__v;
@@ -46,11 +46,10 @@ router.get('/collections/:id', function(req, res) {
   				delete collection2.__v;
   				collection2.locations = results;
 
-  			    res.json(collection2);
+  				res.json(collection2);
   			});
 
-		});
-
+  		});
 	});
 });
 

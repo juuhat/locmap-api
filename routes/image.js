@@ -6,7 +6,7 @@ var fs = require('fs');
 
 var Image = require('../models/image.js');
 
-var handler = multer({
+var multerPreHandler = multer({
 	dest: './uploads/',
 	inMemory: true,
 	onFileUploadStart: function (file) {
@@ -34,7 +34,7 @@ router.get('/images/:id', function(req, res) {
 
 //POST
 //Create new image
-router.post('/images', passport.authenticate('bearer', { session: false }), handler, function(req, res, next) {
+router.post('/images', passport.authenticate('bearer', { session: false }), multerPreHandler, function(req, res, next) {
 	var imgData = req.files.image;
 
 	if (!imgData)
