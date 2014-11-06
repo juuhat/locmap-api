@@ -5,6 +5,7 @@ var gm = require('gm');
 var fs = require('fs');
 
 var Image = require('../models/image.js');
+var Location = require('../models/location.js');
 
 var multerPreHandler = multer({
 	dest: './uploads/',
@@ -40,32 +41,43 @@ router.post('/images', passport.authenticate('bearer', { session: false }), mult
 	if (!imgData)
 		return res.status(400).json({message: "Invalid file"});
 
-	gm(imgData.buffer, imgData.name)
-	.identify(function (err, data) {
+	Location.findById(req.body.location, function(err, doc) {
 		if (err)
-			return res.status(400).json({message: "Invalid file"});
+			return res.status(400).json({message: err.message});
 
-		this.resize(1024);
-		this.quality(85);
-		this.toBuffer('jpg', function(err, buffer) {
+		if (!doc)
+			return res.status(400).json({message: "Location not found"});
+
+		if (doc.owners.indexOf(req.user.id) === -1)
+			return res.status(400).json({message: "Not owner"});
+
+		gm(imgData.buffer, imgData.name)
+		.identify(function (err, data) {
 			if (err)
-				return res.status(400).json({message: err.message});
+				return res.status(400).json({message: "Invalid file"});
 
-			var newImage = new Image;
-			newImage.data = buffer;
-			newImage.contentType = "image/jpeg";
-			newImage.owner = req.user.id;
-			newImage.location = req.body.location;
-
-			newImage.save(function (err, doc) {
+			this.resize(1024);
+			this.quality(85);
+			this.toBuffer('jpg', function(err, buffer) {
 				if (err)
-					res.status(400).json({message: err.message});
+					return res.status(400).json({message: err.message});
 
-				res.json({id: doc.id});
+				var newImage = new Image;
+				newImage.data = buffer;
+				newImage.contentType = "image/jpeg";
+				newImage.owner = req.user.id;
+				newImage.location = doc.id;
+	
+				newImage.save(function (err, doc2) {
+					if (err)
+						res.status(400).json({message: err.message});
+	
+					res.json({id: doc2.id});
+				});
+
 			});
 		});
 	});
-
 });
 
 //DELETE

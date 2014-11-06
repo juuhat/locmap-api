@@ -170,4 +170,9 @@ Log out the user matching to given auth token
 
 #### POST /images
 
-`Content-Type` `multipart/form-data`
+###### Request
+`Authorization` `required`
+
+`form-data fields`
+`image` `imageData: .jpg or .jpeg or .png`
+`location` `54528b9d55b8f08046fd9773`
