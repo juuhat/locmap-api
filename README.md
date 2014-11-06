@@ -84,7 +84,7 @@ To use authentication in request use header:
 #### GET /collections/:id
 
 ###### Request
-`Auhtorization` `not required`
+`Authorization` `not required`
 
 ###### Response
 ```
@@ -173,6 +173,8 @@ Log out the user matching to given auth token
 ###### Request
 `Authorization` `required`
 
-`form-data fields`
+**form-data fields**
+
 `image` `imageData: .jpg or .jpeg or .png`
+
 `location` `54528b9d55b8f08046fd9773`
