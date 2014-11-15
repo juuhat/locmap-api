@@ -5,7 +5,7 @@
 		"express": "~4.9.2",
 		"mongoose": "~3.8.16",
 		"body-parser": "~1.8.2",
-		"passport": "~0.2.1",
+		"passport": "rasek7/passport",
 		"passport-local": "~1.0.0",
 		"passport-http": "~0.2.2",
 		"passport-http-bearer": "~1.0.1",
