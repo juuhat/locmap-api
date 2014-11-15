@@ -46,7 +46,14 @@ To use authentication in request use header:
 ###### Response
 ```
 {
-  "id": "541c01be87d6ac301ef72447"
+  "_id": "541c01be87d6ac301ef72447",
+  "title": "Test",
+  "description": "Test description",
+  "latitude": 23.1,
+  "longitude": 62,
+  "created_at": "2014-11-15T18:45:33.817Z",
+  "updated_at": "2014-11-15T18:45:33.817Z",
+  "owners": ["546799265a1eda2827b138bd"]
 }
 ```
 
@@ -144,11 +151,17 @@ To use authentication in request use header:
 
 #### GET /users/:id
 
-Returns user's username specified by ObjectID
+###### Request
+`Authorization` `not required`
 
+###### Response
 ```
 {
-  "username": "test"
+  "_id": "546799535a1eda2827b138bf",
+  "username": "gg",
+  "created_at": "2014-11-15T18:20:03.560Z",
+  "locations": ["54528b9d55b8f08046fd9773", "54528c4ae1cd650c7b597efc"],
+  "collections": []
 }
 ```
 
