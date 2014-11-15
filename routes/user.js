@@ -48,7 +48,9 @@ router.get('/users/:id', function(req, res) {
 				return res.status(400).json({message: err.message});
 
 			var user = {};
+			user._id = doc.id;
 			user.username = doc.username;
+			user.created_at = doc.created_at;
 			user.locations = results[0] || [];
 			user.collections = results[1] || [];
 
