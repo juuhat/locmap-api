@@ -84,17 +84,40 @@ To use authentication in request use header:
 #### GET /collections/:id
 
 ###### Request
-`Auhtorization` `not required`
+`Authorization` `not required`
 
 ###### Response
 ```
 {
   "title": "Title",
   "description": "Some description",
-  "locations": ["541c01be87d6ac301ef72447", "541c01be87d6ac301ef65381"]
   "owners": ["545287ba4c208ee46961de5b"],
   "updated_at": "2014-10-26T16:32:34.231Z",
   "created_at": "2014-10-26T15:48:23.411Z",
+  "locations": [
+    {
+      "_id": "54528b9d55b8f08046fd9773",
+      "title": "NewTitle",
+      "description": "Some description",
+      "latitude": 23.1,
+      "longitude": 52,
+      "created_at": "2014-11-05T22:00:45.343Z",
+      "updated_at": "2014-11-05T22:00:45.343Z",
+      "owners": ["545287ba4c208ee46961de5b"],
+      "images": ["5452888d4c208ee46961de5d", "5452888d4c208ee469614990"],
+    },
+    {
+      "_id": "54528b9d55b8f08046fd9773",
+      "title": "Title",
+      "description": "desc desc desc",
+      "latitude": 33.14,
+      "longitude": 44.132,
+      "created_at": "2014-11-05T22:00:45.343Z",
+      "updated_at": "2014-11-05T22:00:45.343Z",
+      "owners": ["545287ba4c208ee46961de5b"],
+      "images": ["5452888d4c208ee46961de5d", "5452888d4c208ee469614990"],
+    }
+  ]
 }
 ```
 
@@ -168,11 +191,28 @@ Log out the user matching to given auth token
 
 ## Images
 
+#### GET /images/:id
+
+###### Request
+`Content-Type` `image/jpeg`
+
+###### Response
+`Content-Type` `image/jpeg`
+
 #### POST /images
 
 ###### Request
 `Authorization` `required`
 
-`form-data fields`
+form-data fields
+
 `image` `imageData: .jpg or .jpeg or .png`
+
 `location` `54528b9d55b8f08046fd9773`
+
+###### Response
+```
+{
+  "id": "545b644bbf2589483c87c20c"
+}
+```
