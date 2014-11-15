@@ -51,6 +51,9 @@ router.post('/auth/login', function(req, res) {
 
 		//save generated token
 		user.save(function(err, doc) {
+			if (err)
+				return res.status(400).json(err.message);
+
 			res.set('x-access-token', doc.token);
 			return res.json(doc);
 		});
