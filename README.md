@@ -173,9 +173,9 @@ Deletes user object specified by ObjectID
 ### Authentication
 
 #### POST /auth/login
-
 If credentials match returns access token in `x-access-token` header
 
+###### Request
 ```
 {
   "email": "test@example.com",
@@ -183,16 +183,39 @@ If credentials match returns access token in `x-access-token` header
 }
 ```
 
+###### Response
+`x-access-token` `your-access-token`
+```
+{
+  "_id": "5467a624874603b123bf07be",
+  "username": "test",
+  "email": "test@example.com",
+  "created_at": "2014-11-15T19:14:44.592Z",
+  "updated_at": "014-11-16T11:52:55.174Z"
+}
+```
+
 
 #### POST /auth/register
-
 Creates new user with given credentials
 
+###### Request
 ```
 {
   "email": "test@example.com",
   "username": "test",
   "password": "pw123"
+}
+```
+
+###### Response
+```
+{
+  "_id": "5468908f02b1e88925eb688c",
+  "username": "test",
+  "email": "test@example.com",
+  "created_at": "014-11-16T11:54:55.979Z",
+  "updated_at": "014-11-16T11:54:55.979Z"
 }
 ```
 
