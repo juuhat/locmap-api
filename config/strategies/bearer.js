@@ -15,8 +15,7 @@ module.exports = new BearerStrategy(function(token, done) {
 
 		jwt.verify(user.token, vars.tokenSecret, function(err, decoded) {
 			if(err) {
-				console.log(err);
-				return done(err, null);
+				return done(null, null, err);
 			}
 			return done(null, user);
 		});
