@@ -170,11 +170,6 @@ Responses:
 }
 ```
 
-
-#### DELETE /users/:id
-
-Deletes user object specified by ObjectID
-
 ### Authentication
 
 #### POST /auth/login
