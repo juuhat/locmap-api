@@ -13,6 +13,7 @@ Responses:
 `created_at` and `updated_at` fields use ISO 8601 format and UTC Time Zone
 
 
+
 ## Locations
 
 #### GET /locations/:id
