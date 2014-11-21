@@ -222,8 +222,17 @@ Creates new user with given credentials
 
 
 #### POST /auth/logout
-
 Log out the user matching to given auth token
+
+###### Request
+`Authorization` `required`
+
+###### Response
+```
+{
+  "message": "Logged out"
+}
+```
 
 
 ## Images
