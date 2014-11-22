@@ -19,6 +19,20 @@ var multerPreHandler = multer({
 });
 
 //GET
+//GET all images
+router.get('/images', function(req, res) {
+	Image.find({}, '_id location created_at owner', function(err, doc) {
+		if (err)
+			res.status(400).json({message: err.message});
+
+		if (!doc)
+			res.status(400).json({message: "Not found"});
+
+		res.json(doc);
+	});
+});
+
+//GET
 //Get image specified by id
 router.get('/images/:id', function(req, res) {
 	Image.findById(req.params.id, function(err, doc) {

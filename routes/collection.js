@@ -7,6 +7,20 @@ var Location = require('../models/location.js');
 var Image = require('../models/image.js');
 
 //GET
+//GET all collections
+router.get('/collections', function(req, res) {
+	Collection.find({}, function(err, doc) {
+		if (err)
+			return res.status(400).json({message: err.message});
+
+		if (!doc)
+			return res.status(400).json({message: "Not found"});
+
+		res.json(doc);
+	});
+});
+
+//GET
 //Get collection specified by id
 router.get('/collections/:id', function(req, res) {
 	Collection.findById(req.params.id, function(err, collection) {

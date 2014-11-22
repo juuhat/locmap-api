@@ -7,6 +7,20 @@ var Location = require('../models/location.js');
 var Collection = require('../models/collection.js');
 
 //GET
+//GET all users
+router.get('/users', function(req, res) {
+	User.find({}, function(err, doc) {
+		if (err)
+			res.status(400).json({message: err.message});
+
+		if (!doc)
+			res.status(400).json({message: "Not found"});
+
+		res.json(doc);
+	});
+});
+
+//GET
 //Get user specified by id
 router.get('/users/:id', function(req, res) {
 
