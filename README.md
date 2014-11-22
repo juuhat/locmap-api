@@ -13,7 +13,6 @@ Responses:
 `created_at` and `updated_at` fields use ISO 8601 format and UTC Time Zone
 
 
-
 ## Locations
 
 #### GET /locations/:id
@@ -244,6 +243,29 @@ Log out the user matching to given auth token
 
 ###### Response
 `Content-Type` `image/jpeg`
+
+#### GET /images
+
+###### Request
+`Authentication` `not required`
+
+###### Response
+```
+[
+  {
+    "_id": "545b7436106958212eaeabe0",
+    "created_at": "2014-11-06T13:14:30.835Z",
+    "location": "545b73fe106958212eaeabdf",
+    "owner": "545b738a106958212eaeabde"
+    },
+    {
+    "_id": "546a3d8902b1e88925eb6890",
+    "created_at": "2014-11-17T18:25:13.011Z",
+    "location": "546a3d6502b1e88925eb688f",
+    "owner": "5468908f02b1e88925eb688c"
+    }
+]
+```
 
 #### POST /images
 
