@@ -15,6 +15,44 @@ Responses:
 
 ## Locations
 
+#### GET /locations
+###### Request
+`Authorization` `not required`
+
+**Optional search parameters:**
+
+
+Get locations within distance (km) of given coordinates
+`/locations?lat=23.1323&lon=52.32414&dist=30`
+
+###### Response
+```
+[
+  {
+    "_id": "54528b9d55b8f08046fd9773",
+    "title": "NewTitle",
+    "description": "Some description",
+    "latitude": 23.1,
+    "longitude": 52,
+    "created_at": "2014-11-05T22:00:45.343Z",
+    "updated_at": "2014-11-05T22:00:45.343Z",
+    "owners": ["545287ba4c208ee46961de5b"],
+    "images": ["5452888d4c208ee46961de5d", "5452888d4c208ee469614990"],
+  },
+  {
+    "_id": "54528b9d55b8f08046fd9773",
+    "title": "Title",
+    "description": "desc desc desc",
+    "latitude": 33.14,
+    "longitude": 44.132,
+    "created_at": "2014-11-05T22:00:45.343Z",
+    "updated_at": "2014-11-05T22:00:45.343Z",
+    "owners": ["545287ba4c208ee46961de5b"],
+    "images": ["5452888d4c208ee46961de5d", "5452888d4c208ee469614990"],
+  }
+]
+```
+
 #### GET /locations/:id
 
 ###### Request
