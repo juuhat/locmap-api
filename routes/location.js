@@ -7,7 +7,24 @@ var Image = require('../models/image.js');
 //GET
 //GET all locations
 router.get('/locations', function(req, res) {
-  Location.find({}, function(err, doc) {
+
+  var query = Location.find({});
+
+  var lat = req.param('lat');
+  var lon = req.param('lon');
+  var dist = req.param('dist');
+  if (lat && lon && dist) {
+    var radius = Math.sqrt((dist/2*dist/2)+(dist/2*dist/2));
+    
+    //Get coordinate bounds
+    var northEast = calcCoords(lat, lon, radius, 45);
+    var southWest = calcCoords(lat, lon, radius, 225);
+    
+    query.where('latitude').gt(southWest[0]).lt(northEast[0])
+         .where('longitude').gt(southWest[1]).lt(northEast[1]);
+  }
+
+  query.exec(function(err, doc) {
     if (err)
       return res.status(400).json({message: err.message});
 
@@ -120,5 +137,25 @@ router.delete('/locations/:id', passport.authenticate('bearer'), function(req, r
 
   });
 });
+
+//Returns coordinates calculated from certain distance and direction.
+//Params:
+//lat = original latitude (in decimal degrees)
+//lon = original longitude (in decimal degrees)
+//dist = distance (in kilometers)
+//brng = bearing or 'direction' (in degrees) (0=north,90=east,180=south=270=west)
+function calcCoords(lat, lon, dist, brng) {
+  var latRad = lat * (Math.PI/180);
+  var lonRad = lon * (Math.PI/180);
+  var brngRad = brng * (Math.PI/180);
+  var R = 6371; //earth's radius in km
+
+  var latRad2 = Math.asin(Math.sin(latRad)*Math.cos(dist/R) + Math.cos(latRad)*Math.sin(dist/R)*Math.cos(brngRad));
+
+  var lonRad2 = lonRad + Math.atan2(Math.sin(brngRad)*Math.sin(dist/R)*Math.cos(latRad),
+                         Math.cos(dist/R)-Math.sin(latRad)*Math.sin(latRad2));
+
+  return [latRad2*(180/Math.PI), lonRad2*(180/Math.PI)];
+}
 
 module.exports = router;
