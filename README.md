@@ -21,8 +21,8 @@ Responses:
 
 **Optional search parameters:**
 
-
 Get locations within distance (km) of given coordinates
+
 `/locations?lat=23.1323&lon=52.32414&dist=30`
 
 ###### Response
