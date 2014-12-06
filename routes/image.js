@@ -28,7 +28,7 @@ router.get('/images', function(req, res) {
 		if (!doc)
 			res.status(400).json({message: "Not found"});
 
-		res.json(doc);
+		res.json({images: doc});
 	});
 });
 

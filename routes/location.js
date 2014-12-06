@@ -31,7 +31,7 @@ router.get('/locations', function(req, res) {
     if (!doc)
       return res.status(400).json({message: "Not found"});
 
-    res.json(doc);
+    res.json({locations: doc});
   });
 });
 

@@ -60,7 +60,7 @@ router.get('/collections/:id', function(req, res) {
   				delete collection2.__v;
   				collection2.locations = results;
 
-  				res.json(collection2);
+  				res.json({collections: collection2});
   			});
 
   		});
