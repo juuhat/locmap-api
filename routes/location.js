@@ -73,7 +73,7 @@ router.get('/locations/:id', function(req, res) {
 router.post('/locations', passport.authenticate('bearer'), function(req, res) {
   var newLocation = new Location(req.body);
   newLocation.owners = [req.user.id];
-  
+
   newLocation.save(function (err, doc) {
     if (err)
       return res.status(400).json({message: err.message});
@@ -93,7 +93,7 @@ router.put('/locations/:id', passport.authenticate('bearer'), function(req, res)
     if (!doc)
       return res.status(400).json({messsage: "Not found"});
 
-    if (doc.owners.indexOf(req.user.id) === -1)
+    if (doc.owners.indexOf(req.user.id) === -1 && req.user.role !== "Admin")
       return res.status(400).json({message: "Not owner"});
 
     req.body.updated_at = new Date();
@@ -119,7 +119,7 @@ router.delete('/locations/:id', passport.authenticate('bearer'), function(req, r
     if (!doc)
       return res.status(400).json({message: "Not found"});
 
-    if (doc.owners.indexOf(req.user.id) === -1)
+    if (doc.owners.indexOf(req.user.id) === -1 && req.user.role !== "Admin")
       return res.status(400).json({message: "Not owner"});
 
     Image.remove({location: doc.id}, function(err) {

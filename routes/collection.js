@@ -94,7 +94,7 @@ router.put('/collections/:id', passport.authenticate('bearer'), function(req, re
 		if (!doc)
 			return res.status(400).json({message: "Not found"});
 
-		if (doc.owners.indexOf(req.user.id) === -1)
+		if (doc.owners.indexOf(req.user.id) === -1 && req.user.role !== "Admin")
 			return res.status(400).json({message: "Not owner"});
 
 		req.body.updated_at = new Date();
