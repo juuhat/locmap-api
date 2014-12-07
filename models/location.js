@@ -5,8 +5,8 @@ var Schema = mongoose.Schema;
 var locationSchema = new Schema({
 	title: String,
 	description: String,
-	latitude: {type: Number, required: true},
-	longitude: {type: Number, required: true},
+	latitude: {type: Number, required: true, min: -85, max: 85},
+	longitude: {type: Number, required: true, min: -180, max 180},
 	owners: [{type: Schema.Types.ObjectId, ref: 'User'}],
 	updated_at: {type: Date},
 	created_at: {type: Date}
