@@ -8,6 +8,7 @@ var userSchema = new Schema({
 	email: {type: String, required: true, unique: true},
 	password: {type: String, required: true},
 	token: String,
+	role: {type: String, required: true},
 	updated_at: {type: Date},
 	created_at: {type: Date}
 });

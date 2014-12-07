@@ -22,6 +22,7 @@ router.post('/auth/register', function(req, res) {
 		return res.status(400).json({error: "Bad password"});
 	}
 
+	newUser.role = "Normal";
 	newUser.save(function(err, doc) {
 		if (err)
 			return res.status(400).json({message: err.message});
