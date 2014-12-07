@@ -5,6 +5,7 @@ var async = require('async');
 var User = require('../models/user.js');
 var Location = require('../models/location.js');
 var Collection = require('../models/collection.js');
+var Image = require('../models/image.js');
 
 //GET
 //GET all users
@@ -15,6 +16,9 @@ router.get('/users', function(req, res) {
 
 		if (!doc)
 			res.status(400).json({message: "Not found"});
+
+		if (req.user.role !== "Admin")
+			res.status(400).json({message: "Unauthorized"});
 
 		res.json({users: doc});
 	});
@@ -74,5 +78,59 @@ router.get('/users/:id', function(req, res) {
 	});
 
 });
+
+//PUT
+//Update user specified by id
+router.put('/users/:id', passport.authenticate('bearer'), function(req, res) {
+	User.findById(req.params.id, function(err, doc) {
+    	if (err)
+      		return res.status(400).json({message: err.message});
+
+    	if (!doc)
+      		return res.status(400).json({messsage: "Not found"});
+
+    	if (req.user.role !== "Admin")
+    		return res.status(400).json({message: "Unauthorized"});
+
+    	req.body.updated_at = new Date();
+
+    	User.findByIdAndUpdate(req.params.id, req.body, function(err, doc2) {
+    		if (err)
+    			return res.status(400).json({message: err.message});
+
+    		res.json(doc2);
+    	});
+
+  });
+});
+
+//DELETE
+//Delete usere specified by id
+router.delete('/users/:id', passport.authenticate('bearer'), function(req, res) {
+	User.findById(req.params.id, function(err, doc) {
+		if (err)
+			return res.status(400).json({message: err.message});
+
+		if (!doc)
+			return res.status(400).json({message: "Not found"});
+
+		if (req.user.role !== "Admin")
+			return res.status(400).json({message: "Unauthorized"});
+
+		Image.remove({owner: doc.id}, function(err) {
+			if (err)
+				return res.status(400).json({message: err.message});
+
+			doc.remove(function(err) {
+				if (err)
+					return res.status(400).json({message: err.message});
+
+				res.json({message: "Deleted"});
+			});
+		});
+
+	});
+});
+
 
 module.exports = router;
