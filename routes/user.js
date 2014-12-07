@@ -9,7 +9,7 @@ var Image = require('../models/image.js');
 
 //GET
 //GET all users
-router.get('/users', function(req, res) {
+router.get('/users', passport.authenticate('bearer'), function(req, res) {
 	User.find({}, function(err, doc) {
 		if (err)
 			res.status(400).json({message: err.message});
