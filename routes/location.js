@@ -1,5 +1,6 @@
 var router = require('express').Router();
 var passport = require('passport');
+var async = require('async');
 
 var Location = require('../models/location.js');
 var Image = require('../models/image.js');
@@ -24,14 +25,41 @@ router.get('/locations', function(req, res) {
          .where('longitude').gt(southWest[1]).lt(northEast[1]);
   }
 
-  query.exec(function(err, doc) {
+  query.exec(function(err, locations) {
     if (err)
       return res.status(400).json({message: err.message});
 
-    if (!doc)
+    if (!locations)
       return res.status(400).json({message: "Not found"});
+    //console.log(locations);
 
-    res.json({locations: doc});
+    var locationsWithImages = [];
+    async.each(locations, function(location, callback) {
+      Image.find({location: location.id}, '_id', function(err, imgs) {
+        if (err)
+          callback(err)
+
+        var loc = location.toObject();
+        loc.images = [];
+        
+        if (imgs) {
+          imgs.forEach(function(e) {
+            loc.images.push(e.id);
+          });
+        }
+
+        locationsWithImages.push(loc);
+        callback(null);
+
+      })
+    }, function(err) {
+      if (err)
+        return res.status(400).json({message: err.message});
+
+      res.json({locations: locationsWithImages});
+    });
+
+
   });
 });
 
