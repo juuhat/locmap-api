@@ -105,7 +105,7 @@ router.delete('/images/:id', passport.authenticate('bearer'), function(req, res)
     if (!doc)
       return res.status(400).json({message: "Not found"});
 
-    if (doc.owner !== req.user.id)
+    if (doc.owner !== req.user.id && req.user.role !== "Admin")
       return res.status(400).json({message: "Not owner"});
 
     doc.remove(function(err) {
