@@ -27,30 +27,33 @@ Get locations within distance (km) of given coordinates
 
 ###### Response
 ```
-[
-  {
-    "_id": "54528b9d55b8f08046fd9773",
-    "title": "NewTitle",
-    "description": "Some description",
-    "latitude": 23.1,
-    "longitude": 52,
-    "created_at": "2014-11-05T22:00:45.343Z",
-    "updated_at": "2014-11-05T22:00:45.343Z",
-    "owners": ["545287ba4c208ee46961de5b"],
-    "images": ["5452888d4c208ee46961de5d", "5452888d4c208ee469614990"],
-  },
-  {
-    "_id": "54528b9d55b8f08046fd9773",
-    "title": "Title",
-    "description": "desc desc desc",
-    "latitude": 33.14,
-    "longitude": 44.132,
-    "created_at": "2014-11-05T22:00:45.343Z",
-    "updated_at": "2014-11-05T22:00:45.343Z",
-    "owners": ["545287ba4c208ee46961de5b"],
-    "images": ["5452888d4c208ee46961de5d", "5452888d4c208ee469614990"],
-  }
-]
+{
+"locations:"
+  [
+    {
+      "_id": "54528b9d55b8f08046fd9773",
+      "title": "NewTitle",
+      "description": "Some description",
+      "latitude": 23.1,
+      "longitude": 52,
+      "created_at": "2014-11-05T22:00:45.343Z",
+      "updated_at": "2014-11-05T22:00:45.343Z",
+      "owners": ["545287ba4c208ee46961de5b"],
+      "images": ["5452888d4c208ee46961de5d", "5452888d4c208ee469614990"],
+    },
+    {
+      "_id": "54528b9d55b8f08046fd9773",
+      "title": "Title",
+      "description": "desc desc desc",
+      "latitude": 33.14,
+      "longitude": 44.132,
+      "created_at": "2014-11-05T22:00:45.343Z",
+      "updated_at": "2014-11-05T22:00:45.343Z",
+      "owners": ["545287ba4c208ee46961de5b"],
+      "images": ["5452888d4c208ee46961de5d", "5452888d4c208ee469614990"],
+    }
+  ]
+}
 ```
 
 #### GET /locations/:id
@@ -285,24 +288,27 @@ Log out the user matching to given auth token
 #### GET /images
 
 ###### Request
-`Authentication` `not required`
+`Authentication` `admin`
 
 ###### Response
 ```
-[
-  {
-    "_id": "545b7436106958212eaeabe0",
-    "created_at": "2014-11-06T13:14:30.835Z",
-    "location": "545b73fe106958212eaeabdf",
-    "owner": "545b738a106958212eaeabde"
-    },
+{
+  "images":
+  [
     {
-    "_id": "546a3d8902b1e88925eb6890",
-    "created_at": "2014-11-17T18:25:13.011Z",
-    "location": "546a3d6502b1e88925eb688f",
-    "owner": "5468908f02b1e88925eb688c"
-    }
-]
+      "_id": "545b7436106958212eaeabe0",
+      "created_at": "2014-11-06T13:14:30.835Z",
+      "location": "545b73fe106958212eaeabdf",
+      "owner": "545b738a106958212eaeabde"
+      },
+      {
+      "_id": "546a3d8902b1e88925eb6890",
+      "created_at": "2014-11-17T18:25:13.011Z",
+      "location": "546a3d6502b1e88925eb688f",
+      "owner": "5468908f02b1e88925eb688c"
+      }
+  ]
+}
 ```
 
 #### POST /images
