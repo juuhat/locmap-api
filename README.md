@@ -1,4 +1,8 @@
-locmap-api documentation
+LocMap
+======
+LocMap is a concept of service where user's can store photos and stories attached to locations. 
+
+API documentation
 ======
 
 All requests should use header:
