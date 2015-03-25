@@ -86,7 +86,7 @@ describe('LocMap API usage', function() {
 
 		it('should get existing location with correct objectId', function(done) {
 			supertest(url)
-			.get('/locations/a' + ctx.location.id)
+			.get('/locations/' + ctx.location.id)
 			.expect(200, done);
 		});
 	});
