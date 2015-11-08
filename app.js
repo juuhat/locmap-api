@@ -23,6 +23,14 @@ if (!isTestEnv) {
 	mongoose.connect(vars.mongodbAddress);
 }
 
+//allow cors
+express.all("/api/*", function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Cache-Control, Pragma, Origin, Authorization, Content-Type, X-Requested-With");
+  res.header("Access-Control-Allow-Methods", "GET, PUT, POST, DELETE");
+  return next();
+});
+
 //set routes
 express.use(vars.apiPrefix, require('./routes/location.js'));
 express.use(vars.apiPrefix, require('./routes/collection.js'));
