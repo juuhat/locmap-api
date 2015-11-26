@@ -56,7 +56,10 @@ router.post('/auth/login', function(req, res) {
 				return res.status(400).json({message: err.message});
 
 			res.set('x-access-token', doc.token);
-			return res.json(doc);
+
+			var res_obj = doc.toJSON();
+			res_obj.token = doc.token;
+			return res.json(res_obj);
 		});
 	}
 

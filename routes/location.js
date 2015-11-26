@@ -7,23 +7,22 @@ var Image = require('../models/image.js');
 
 //GET
 //GET all locations
-router.get('/locations', function(req, res) {
+router.get('/locations', passport.authenticate('bearer'), function(req, res) {
+  var query = Location.find({ owners: req.user.id });
 
-  var query = Location.find({});
-
-  var lat = req.param('lat');
+  /*var lat = req.param('lat');
   var lon = req.param('lon');
   var dist = req.param('dist');
   if (lat && lon && dist) {
     var radius = Math.sqrt((dist/2*dist/2)+(dist/2*dist/2));
-    
+
     //Get coordinate bounds
     var northEast = calcCoords(lat, lon, radius, 45);
     var southWest = calcCoords(lat, lon, radius, 225);
-    
+
     query.where('latitude').gt(southWest[0]).lt(northEast[0])
          .where('longitude').gt(southWest[1]).lt(northEast[1]);
-  }
+  }*/
 
   query.exec(function(err, locations) {
     if (err)
@@ -31,7 +30,6 @@ router.get('/locations', function(req, res) {
 
     if (!locations)
       return res.status(400).json({message: "Not found"});
-    //console.log(locations);
 
     var locationsWithImages = [];
     async.each(locations, function(location, callback) {
@@ -41,7 +39,7 @@ router.get('/locations', function(req, res) {
 
         var loc = location.toObject();
         loc.images = [];
-        
+
         if (imgs) {
           imgs.forEach(function(e) {
             loc.images.push(e.id);
@@ -140,7 +138,7 @@ router.put('/locations/:id', passport.authenticate('bearer'), function(req, res)
 //Delete location specified by id
 router.delete('/locations/:id', passport.authenticate('bearer'), function(req, res) {
   Location.findById(req.params.id, function(err, doc) {
-    
+
     if (err)
       return res.status(400).json({message: err.message});
 
