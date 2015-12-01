@@ -32,7 +32,7 @@ router.get('/collections/:id', function(req, res) {
 
 		//Find locations attached to collection
 		Location.find({'_id': { $in: collection.locations}}, function(err, locations) {
-  			
+
   			//Find images attached to location
   			async.map(locations, function(loc, done) {
   				Image.find({location: loc.id}, '_id', function(err, images) {
@@ -50,7 +50,7 @@ router.get('/collections/:id', function(req, res) {
   			    	done(null, loc2);
   			});
   			},
-  			
+
   			//Handle results
   			function(err, results) {
   			  if (err)
@@ -60,7 +60,7 @@ router.get('/collections/:id', function(req, res) {
   				delete collection2.__v;
   				collection2.locations = results;
 
-  				res.json({collections: collection2});
+  				res.json(collection2);
   			});
 
   		});
@@ -77,7 +77,7 @@ router.post('/collections', passport.authenticate('bearer'), function(req, res) 
 	newCollection.save(function (err, doc) {
 		if (err)
 			return res.status(400).json({message: err.message});
-		
+
 		res.json(doc);
 	});
 });
